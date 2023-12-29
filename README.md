@@ -17,3 +17,8 @@ $ ./repl.py
 > a * b
 10
 ```
+
+Configuration parameters accepted in `config.yaml`:
+- `work_dir` - Target directory for intermediate results (default: `/tmp`)
+- `compiler` - Compiler to use for compiling temporary application (default: `g++`)
+- `default_headers` - Set of default header files to always include when compiling (default `[ "iostream" ]`)
