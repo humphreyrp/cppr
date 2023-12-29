@@ -1,4 +1,0 @@
----
-work_dir: ./work
-compiler: g++
-default_headers: [ "iostream" ]
