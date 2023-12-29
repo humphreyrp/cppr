@@ -4,7 +4,6 @@ import subprocess
 import yaml
 
 
-# Application class, handles
 class Repl:
     header_lines = []
     body_lines = []
@@ -16,15 +15,15 @@ class Repl:
             with open('./config.yaml') as f:
                 self._cfg = yaml.safe_load(f.read())
         except Exception as e:
-            print(f"Error reading configuration: {e}")
-            raise
+            print(f"WARN: no 'config.yaml' file present, falling back on defaults")
+            self._cfg = {}
 
         self.compiler = self.get_cfg_or('compiler', 'g++')
         work_dir = self.get_cfg_or('work_dir', '/tmp')
         self.filepath = work_dir + '/repl.cpp'
         self.outfilepath = work_dir + '/a.out'
 
-        default_headers = self.get_cfg_or('default_headers', [])
+        default_headers = self.get_cfg_or('default_headers', [ 'iostream' ])
         for header in default_headers:
             self.header_lines.append(f"#include <{header}>")
 
@@ -80,6 +79,7 @@ class Repl:
 
         return out
 
+    # Adds a line to the REPL, and returns the result of that line
     def addLine(self, line):
 
         # We won't add this to our list of code unless it's successfully compiled, so keep a local
